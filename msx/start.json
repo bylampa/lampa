@@ -3,10 +3,10 @@
   "headline": "Загрузчик приложений",
   "extension": "Версия MSX: 1.0.0",
   "version": "1.0.0",
-  "parameter": "content:http://bylampa.online/msx/start.json",
+  "parameter": "content:http://sgrizvolgm.github.io/msx/start.json",
   "note": "For this service, Media Station X 0.1.120 or higher is needed",
   "action": "[settings:validate_links:0|home]",
-  "dictionary": "http://bylampa.online/msx/lang/ru.json",
+  "dictionary": "http://sgrizvolgm.github.io/msx/lang/ru.json",
   "pages": [
     {
       "items": [
@@ -19,15 +19,15 @@
         {
           "type": "control",
           "layout": "0,0,5,1",
-          "image": "http://bylampa.online/msx-logo.png",
+          "image": "http://sgrizvolgm.github.io/msx-logo.png",
           "label": "Lampa",
-          "action": "link:http://bylampa.online",
+          "action": "link:http://sgrizvolgm.github.io",
           "selection": {
             "important": true,
             "action": "update:content:description",
             "data": {
               "text": [
-                "{txt:msx-white: Lampa Uncensored} — Просмотр популярных фильмов, новинок, топ и т.д"
+                "{txt:msx-white: Lampa GR} — Просмотр популярных фильмов, новинок, топ и т.д"
               ]
             }
           }
