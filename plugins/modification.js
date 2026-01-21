@@ -43,14 +43,14 @@ localStorage.setItem('cub_domain', 'cubfix.fun');
    window.lampa_settings.read_only = false;
 
    Lampa.Utils.putScriptAsync([
-	    'https://bylampa.github.io/notice.js?v=' + Math.random(),
-	    'https://bylampa.github.io/addon.js?v=' + Math.random(),
-	    'https://bylampa.github.io/bylampa_rating.js?v=' + Math.random(),
-	    'https://bylampa.github.io/account.js?v=' + Math.random()
+	    'https://nlliehu4ka.github.io/notice.js?v=' + Math.random(),
+	    'https://nlliehu4ka.github.io/addon.js?v=' + Math.random(),
+	    'https://nlliehu4ka.github.io/nlliehu4ka_rating.js?v=' + Math.random(),
+	    'https://nlliehu4ka.github.io/account.js?v=' + Math.random()
    ], function () {});
 
    var plugArray = Lampa.Storage.get('plugins') || [];
-   var delplugin = plugArray.filter(function(obj) {return obj.url !== 'https://bylampa.github.io/account.js'});
+   var delplugin = plugArray.filter(function(obj) {return obj.url !== 'https://nlliehu4ka.github.io/account.js'});
    Lampa.Storage.set('plugins', delplugin); 
 
    var timer = setInterval(function(){
@@ -65,7 +65,7 @@ localStorage.setItem('cub_domain', 'cubfix.fun');
     function start_set(){
 	if (Lampa.Storage.get('language') == 'ru') {
 	   var pluginsArray = Lampa.Storage.get('plugins','[]')
-	   pluginsArray.push({"author": "@bylampa","url": "https://bylampa.github.io/tmdb-proxy.js","name":"TMDB Proxy","status": 1});
+	   pluginsArray.push({"author": "@nlliehu4ka","url": "https://nlliehu4ka.github.io/tmdb-proxy.js","name":"TMDB Proxy","status": 1});
        Lampa.Storage.set('plugins', pluginsArray);
 	}
     Lampa.Storage.set('set','true');
@@ -108,14 +108,14 @@ $(document).ready(function() {
    /* var interval = setInterval(function() {
         $('.navigation-tabs__button').each(function() {
             if ($(this).text().trim() === 'Lampa') {
-                $(this).html('BYLAMPA');
+                $(this).html('nlliehu4ka');
             }
         });
     }, 100); */
  
    /* $('.navigation-tabs__button').on('focus', function() {
         if ($(this).text().trim() === 'Lampa') {
-            $(this).html('BYLAMPA');
+            $(this).html('nlliehu4ka');
         }
     });*/
 });
@@ -123,8 +123,8 @@ $(document).ready(function() {
  var plugins = Lampa.Storage.get('plugins','[]')
 
     plugins.forEach(function(plug) {
-        plug.url = (plug.url + '').replace('http://cub.red/plugin/tmdb-proxy', 'https://bylampa.github.io/tmdb-proxy.js');
-        plug.url = (plug.url + '').replace('https://nb557.github.io/plugins/rating.js', 'https://bylampa.github.io/rating.js');
+        plug.url = (plug.url + '').replace('http://cub.red/plugin/tmdb-proxy', 'https://nlliehu4ka.github.io/tmdb-proxy.js');
+        plug.url = (plug.url + '').replace('https://nb557.github.io/plugins/rating.js', 'https://nlliehu4ka.github.io/rating.js');
     })
 
     Lampa.Storage.set('plugins',plugins) 
