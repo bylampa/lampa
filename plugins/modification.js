@@ -1,5 +1,26 @@
+window.lampa_settings.disable_features = window.lampa_settings.disable_features || {};
+window.lampa_settings.disable_features.lgbt = Lampa.Storage.get('lgbt_off', false);
+
 Lampa.Storage.set('protocol', 'http');
+
 localStorage.setItem('cub_domain', 'cub.rip');
+
+Lampa.SettingsApi.addParam({
+           component: 'interface',
+           param: {
+             name: 'lgbt_off',
+             type: 'trigger',
+             default: no
+           },
+           field: {
+             name: 'Показывать LGBT контент'
+           },
+           onRender: function(item) {
+             setTimeout(function() {
+                 $('div[data-name="lgbt_off"]').insertAfter('div[data-name="card_interfice_cover"]');
+             }, 0);
+           }
+        });
 
 /*Lampa.SettingsApi.addParam({
     component: 'interface',
