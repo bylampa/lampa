@@ -10,7 +10,7 @@ Lampa.SettingsApi.addParam({
            param: {
              name: 'lgbt_off',
              type: 'trigger',
-             default: no
+             default: false
            },
            field: {
              name: 'Показывать LGBT контент'
