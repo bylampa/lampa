@@ -3,7 +3,7 @@ window.lampa_settings.disable_features.lgbt = Lampa.Storage.get('lgbt_off', fals
 
 Lampa.Storage.set('protocol', 'http');
 
-localStorage.setItem('cub_domain', 'durex.monster');
+localStorage.setItem('cub_domain', 'cubleave.store');
 
 Lampa.SettingsApi.addParam({
     component: 'interface',
