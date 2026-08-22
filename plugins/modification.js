@@ -9,7 +9,7 @@ Lampa.Storage.set('protocol', 'http');
 
 Lampa.Storage.listener.follow('change', function (event) {
     // Проверяем изменение ключа acc_sync (BYLAMPA)
-    if (event.name === 'acc_sync' && event.value === true) {
+    if (event.name === 'acc_sync' && (event.value === true || event.value === 'true')) {
         // Пытаемся включить BYLAMPA, проверяем не включен ли CUB
         if (Lampa.Storage.field('account_use')) {
             // CUB включен, отключаем BYLAMPA
@@ -23,7 +23,7 @@ Lampa.Storage.listener.follow('change', function (event) {
     }
     
     // Проверяем изменение ключа account_use (CUB)
-    if (event.name === 'account_use' && event.value === true) {
+    if (event.name === 'account_use' && (event.value === true || event.value === 'true')) {
         // Пытаемся включить CUB, проверяем не включен ли BYLAMPA
         if (Lampa.Storage.field('acc_sync')) {
             // BYLAMPA включен, отключаем CUB
