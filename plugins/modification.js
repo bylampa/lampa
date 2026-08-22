@@ -7,27 +7,73 @@ Lampa.Storage.set('protocol', 'http');
  *** Взаимное исключение синхронизаций BYLAMPA и CUB
  */
 
-// Функция для проверки и скрытия/показа параметров
+// Функция для управления видимостью параметров
 function checkSyncConflicts() {
     var byLampaSync = Lampa.Storage.field('acc_sync');
     var cubSync = Lampa.Storage.field('account_use');
     
-    // Если включена синхронизация CUB, скрываем параметр BYLAMPA
+    // Если включена синхронизация CUB, скрываем оригинальный параметр BYLAMPA и показываем заглушку
     if (cubSync) {
         $('div[data-name="acc_sync"]').hide();
-        // Показываем заглушку или просто скрываем
+        $('div[data-name="acc_sync_disabled"]').show();
     } else {
         $('div[data-name="acc_sync"]').show();
+        $('div[data-name="acc_sync_disabled"]').hide();
     }
     
-    // Если включена синхронизация BYLAMPA, скрываем параметр CUB
+    // Если включена синхронизация BYLAMPA, скрываем оригинальный параметр CUB и показываем заглушку
     if (byLampaSync) {
-        // Скрываем параметр CUB (обычно в компоненте account)
         $('div[data-name="account_use"]').hide();
+        $('div[data-name="account_use_disabled"]').show();
     } else {
         $('div[data-name="account_use"]').show();
+        $('div[data-name="account_use_disabled"]').hide();
     }
 }
+
+// Создаем заглушку для BYLAMPA
+Lampa.SettingsApi.addParam({
+    component: 'acc',
+    param: {
+        name: 'acc_sync_disabled',
+        type: 'trigger',
+        default: false
+    },
+    field: {
+        name: 'Синхронизация данных',
+        description: 'Синхронизация ваших закладок, плагинов, таймкодов, историй просмотров и поиска между устройствами'
+    },
+    onChange: function(value) {
+        // Ничего не делаем, просто показываем уведомление
+        Lampa.Settings.update();
+        Lampa.Bell.push({
+            text: 'Сначала отключите синхронизацию CUB',
+            icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="#f44336"/></svg>'
+        });
+    }
+});
+
+// Создаем заглушку для CUB
+Lampa.SettingsApi.addParam({
+    component: 'account',
+    param: {
+        name: 'account_use_disabled',
+        type: 'trigger',
+        default: false
+    },
+    field: {
+        name: 'Синхронизация CUB',
+        description: 'Синхронизация данных CUB'
+    },
+    onChange: function(value) {
+        // Ничего не делаем, просто показываем уведомление
+        Lampa.Settings.update();
+        Lampa.Bell.push({
+            text: 'Сначала отключите синхронизацию BYLAMPA',
+            icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="#f44336"/></svg>'
+        });
+    }
+});
 
 // Запускаем проверку при открытии настроек
 Lampa.Settings.listener.follow('open', function(e) {
@@ -35,55 +81,17 @@ Lampa.Settings.listener.follow('open', function(e) {
         checkSyncConflicts();
     }, 100);
     
-    // Для компонента аккаунта
     if (e.name == 'account') {
         setTimeout(function() {
             checkSyncConflicts();
         }, 100);
     }
     
-    // Для компонента BYLAMPA
     if (e.name == 'acc') {
         setTimeout(function() {
             checkSyncConflicts();
         }, 100);
     }
-});
-
-// Отслеживаем изменения и обновляем видимость
-Lampa.Storage.listener.follow('change', function (event) {
-    // Проверяем изменение ключа acc_sync (BYLAMPA)
-    if (event.name === 'acc_sync' && event.value == 'true') {
-        // Пытаемся включить BYLAMPA, проверяем не включен ли CUB
-        if (Lampa.Storage.field('account_use')) {
-            // CUB включен, отключаем BYLAMPA
-            Lampa.Storage.set('acc_sync', false);
-            Lampa.Settings.update();
-            Lampa.Bell.push({
-                text: 'Сначала отключите синхронизацию CUB',
-                icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="#f44336"/></svg>'
-            });
-        }
-    }
-    
-    // Проверяем изменение ключа account_use (CUB)
-    if (event.name === 'account_use' && event.value == 'true') {
-        // Пытаемся включить CUB, проверяем не включен ли BYLAMPA
-        if (Lampa.Storage.field('acc_sync')) {
-            // BYLAMPA включен, отключаем CUB
-            Lampa.Storage.set('account_use', false);
-            Lampa.Settings.update();
-            Lampa.Bell.push({
-                text: 'Сначала отключите синхронизацию BYLAMPA',
-                icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="#f44336"/></svg>'
-            });
-        }
-    }
-    
-    // Обновляем видимость параметров
-    setTimeout(function() {
-        checkSyncConflicts();
-    }, 50);
 });
 
 //localStorage.setItem('cub_domain', 'cubleave.store');
