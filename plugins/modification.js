@@ -9,30 +9,32 @@ Lampa.Storage.set('protocol', 'http');
 
 Lampa.Storage.listener.follow('change', function (event) {
     // Проверяем изменение ключа acc_sync (BYLAMPA)
-    if (event.name === 'acc_sync' && (event.value === true || event.value === 'true')) {
+    if (event.name === 'acc_sync' && event.value == 'true') {
         // Пытаемся включить BYLAMPA, проверяем не включен ли CUB
         if (Lampa.Storage.field('account_use')) {
-            // CUB включен, отключаем BYLAMPA
+            // CUB включен, отключаем BYLAMPA немедленно
             Lampa.Storage.set('acc_sync', false);
             Lampa.Settings.update();
             Lampa.Bell.push({
                 text: 'Сначала отключите синхронизацию CUB',
                 icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="#f44336"/></svg>'
             });
+            return; // Прерываем выполнение
         }
     }
     
     // Проверяем изменение ключа account_use (CUB)
-    if (event.name === 'account_use' && (event.value === true || event.value === 'true')) {
+    if (event.name === 'account_use' && event.value == 'true') {
         // Пытаемся включить CUB, проверяем не включен ли BYLAMPA
         if (Lampa.Storage.field('acc_sync')) {
-            // BYLAMPA включен, отключаем CUB
+            // BYLAMPA включен, отключаем CUB немедленно
             Lampa.Storage.set('account_use', false);
             Lampa.Settings.update();
             Lampa.Bell.push({
                 text: 'Сначала отключите синхронизацию BYLAMPA',
                 icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="#f44336"/></svg>'
             });
+            return; // Прерываем выполнение
         }
     }
 });
