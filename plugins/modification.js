@@ -45,7 +45,7 @@ Lampa.SettingsApi.addParam({
     },
     onRender: function(item) {
         setTimeout(function() {
-            $('div[data-name="acc_sync_disabled"]').insertAfter('div[data-name="acc_backup"]');
+            $('div[data-name="acc_sync_disabled"]').insertBefore('div[data-name="acc_sync"]');
         }, 0);
     },
     onChange: function(value) {
@@ -70,6 +70,11 @@ Lampa.SettingsApi.addParam({
     field: {
         name: 'Синхронизация',
         description: ''
+    },
+    onRender: function(item) {
+        setTimeout(function() {
+            $('div[data-name="account_use_disabled"]').insertBefore('div[data-name="account_use"]');
+        }, 0);
     },
     onChange: function(value) {
         // Возвращаем false и обновляем настройки
