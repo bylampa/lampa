@@ -43,8 +43,14 @@ Lampa.SettingsApi.addParam({
         name: 'Синхронизация данных',
         description: 'Синхронизация ваших закладок, плагинов, таймкодов, историй просмотров и поиска между устройствами'
     },
+    onRender: function(item) {
+        setTimeout(function() {
+            $('div[data-name="acc_sync_disabled"]').insertAfter('div[data-name="acc_backup"]');
+        }, 0);
+    },
     onChange: function(value) {
-        // Ничего не делаем, просто показываем уведомление
+        // Возвращаем false и обновляем настройки
+        Lampa.Storage.set('acc_sync_disabled', false);
         Lampa.Settings.update();
         Lampa.Bell.push({
             text: 'Сначала отключите синхронизацию CUB',
@@ -62,11 +68,12 @@ Lampa.SettingsApi.addParam({
         default: false
     },
     field: {
-        name: 'Синхронизация CUB',
-        description: 'Синхронизация данных CUB'
+        name: 'Синхронизация',
+        description: ''
     },
     onChange: function(value) {
-        // Ничего не делаем, просто показываем уведомление
+        // Возвращаем false и обновляем настройки
+        Lampa.Storage.set('account_use_disabled', false);
         Lampa.Settings.update();
         Lampa.Bell.push({
             text: 'Сначала отключите синхронизацию BYLAMPA',
@@ -79,18 +86,18 @@ Lampa.SettingsApi.addParam({
 Lampa.Settings.listener.follow('open', function(e) {
     setTimeout(function() {
         checkSyncConflicts();
-    }, 100);
+    }, 0);
     
     if (e.name == 'account') {
         setTimeout(function() {
             checkSyncConflicts();
-        }, 100);
+        }, 0);
     }
     
     if (e.name == 'acc') {
         setTimeout(function() {
             checkSyncConflicts();
-        }, 100);
+        }, 0);
     }
 });
 
