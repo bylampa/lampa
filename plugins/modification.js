@@ -14,14 +14,14 @@ function checkSyncConflicts() {
     
     // Если включена синхронизация CUB, скрываем оригинальный параметр BYLAMPA и показываем заглушку
     if (cubSync) {
-        $('div[data-name="acc_sync"]').hide();
+        $('div[data-name="acc_sync"]').remove();
         $('div[data-name="acc_sync_disabled"]').show();
 		var F = document.querySelector("#app > div.settings.animate > div.settings__content.layer--height > div.settings__body > div > div > div > div > div:nth-child(5)")
         Lampa.Controller.focus(F)
         Lampa.Controller.toggle('settings_component')
     } else {
         $('div[data-name="acc_sync"]').show();
-        $('div[data-name="acc_sync_disabled"]').hide();
+        $('div[data-name="acc_sync_disabled"]').remove();
 		setTimeout(function() {
 		   var F = document.querySelector("#app > div.settings.animate > div.settings__content.layer--height > div.settings__body > div > div > div > div > div:nth-child(5)")
            Lampa.Controller.focus(F)
