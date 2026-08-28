@@ -16,11 +16,15 @@ function checkSyncConflicts() {
     if (cubSync) {
         $('div[data-name="acc_sync"]').hide();
         $('div[data-name="acc_sync_disabled"]').show();
-		Lampa.Controller.toggle('settings_component')
+		var F = document.querySelector("#app > div.settings > div.settings__content.layer--height > div.settings__body > div > div > div > div > div:nth-child(5)")
+        Lampa.Controller.focus(F)
+        Lampa.Controller.toggle('settings_component')
     } else {
         $('div[data-name="acc_sync"]').show();
         $('div[data-name="acc_sync_disabled"]').hide();
-		Lampa.Controller.toggle('settings_component')
+		var F = document.querySelector("#app > div.settings > div.settings__content.layer--height > div.settings__body > div > div > div > div > div:nth-child(5)")
+        Lampa.Controller.focus(F)
+        Lampa.Controller.toggle('settings_component')
     }
     
     // Если включена синхронизация BYLAMPA, скрываем оригинальный параметр CUB и показываем заглушку
@@ -104,7 +108,7 @@ Lampa.Settings.listener.follow('open', function(e) {
     if (e.name == 'acc') {
         setTimeout(function() {
             checkSyncConflicts();
-        }, 100);
+        }, 0);
     }
 });
             
