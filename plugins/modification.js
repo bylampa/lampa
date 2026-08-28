@@ -16,13 +16,13 @@ function checkSyncConflicts() {
     if (cubSync) {
         $('div[data-name="acc_sync"]').hide();
         $('div[data-name="acc_sync_disabled"]').show();
-		var F = document.querySelector("#app > div.settings > div.settings__content.layer--height > div.settings__body > div > div > div > div > div:nth-child(5)")
+		var F = document.querySelector("#app > div.settings.animate > div.settings__content.layer--height > div.settings__body > div > div > div > div > div:nth-child(5)")
         Lampa.Controller.focus(F)
         Lampa.Controller.toggle('settings_component')
     } else {
         $('div[data-name="acc_sync"]').show();
         $('div[data-name="acc_sync_disabled"]').hide();
-		var F = document.querySelector("#app > div.settings > div.settings__content.layer--height > div.settings__body > div > div > div > div > div:nth-child(5)")
+		var F = document.querySelector("#app > div.settings.animate > div.settings__content.layer--height > div.settings__body > div > div > div > div > div:nth-child(5)")
         Lampa.Controller.focus(F)
         Lampa.Controller.toggle('settings_component')
     }
