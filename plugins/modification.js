@@ -58,7 +58,9 @@ Lampa.SettingsApi.addParam({
     onRender: function(item) {
         setTimeout(function() {
             $('div[data-name="acc_sync_disabled"]').insertBefore('div[data-name="acc_sync"]');
-			Lampa.Controller.toggle('settings_component');
+			var F = document.querySelector("#app > div.settings.animate > div.settings__content.layer--height > div.settings__body > div > div > div > div > div:nth-child(5)")
+            Lampa.Controller.focus(F)
+            Lampa.Controller.toggle('settings_component')
         }, 0);
     },
     onChange: function(value) {
