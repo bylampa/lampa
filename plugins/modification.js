@@ -104,7 +104,7 @@ Lampa.Settings.listener.follow('open', function(e) {
     if (e.name == 'acc') {
         setTimeout(function() {
             checkSyncConflicts();
-        }, 0);
+        }, 100);
     }
 });
             
