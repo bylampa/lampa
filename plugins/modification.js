@@ -3,7 +3,8 @@ window.lampa_settings.disable_features.lgbt = Lampa.Storage.get('lgbt_off', fals
 
 Lampa.Storage.set('protocol', 'http');
 
-
+Lampa.Listener.follow('full', function(a) {
+            if (a.type == 'complite') {
 $('.full-start-new__rate-line .full-start__pg, .full-start-new__rate-line .full-start__status').wrapAll('<div class="rate-line-bottom"></div>');
 
 $('.rate-line-bottom').css({
@@ -23,6 +24,8 @@ $('.rate-line-bottom > *').css({
 
 // Убираем отступ у последнего элемента
 $('.rate-line-bottom > *:last-child').css('margin-right', '0');
+				}
+        });
 
 /*
  *** Взаимное исключение синхронизаций BYLAMPA и CUB
