@@ -8,7 +8,7 @@ Lampa.Storage.set('protocol', 'http');
  */
 
 // Функция для управления видимостью параметров
-/*function checkSyncConflicts() {
+function checkSyncConflicts() {
     var byLampaSync = Lampa.Storage.field('acc_sync');
     var cubSync = Lampa.Storage.field('account_use');
     
@@ -104,7 +104,7 @@ Lampa.Settings.listener.follow('open', function(e) {
             checkSyncConflicts();
         }, 0);
     }
-});*/
+});
 
 //localStorage.setItem('cub_domain', 'cubleave.store');
 //localStorage.removeItem('cub_domain');
