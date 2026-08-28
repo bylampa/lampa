@@ -96,7 +96,7 @@ Lampa.SettingsApi.addParam({
 // Запускаем проверку при открытии настроек
 Lampa.Settings.listener.follow('open', function(e) {
     setTimeout(function() {
-        checkSyncConflicts();
+       // checkSyncConflicts();
     }, 0);
     
     if (e.name == 'account') {
