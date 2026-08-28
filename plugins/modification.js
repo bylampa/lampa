@@ -31,9 +31,15 @@ function checkSyncConflicts() {
     if (byLampaSync) {
         $('div[data-name="account_use"]').hide();
         $('div[data-name="account_use_disabled"]').show();
+		var F = document.querySelector("#app > div.settings.animate > div.settings__content.layer--height > div.settings__body > div > div > div > div > div:nth-child(3)")
+        Lampa.Controller.focus(F)
+        Lampa.Controller.toggle('settings_component')
     } else {
         $('div[data-name="account_use"]').show();
         $('div[data-name="account_use_disabled"]').hide();
+		var F = document.querySelector("#app > div.settings.animate > div.settings__content.layer--height > div.settings__body > div > div > div > div > div:nth-child(3)")
+        Lampa.Controller.focus(F)
+        Lampa.Controller.toggle('settings_component')	
     }
 }
 
