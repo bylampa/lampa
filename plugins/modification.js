@@ -8,7 +8,7 @@ Lampa.Storage.set('protocol', 'http');
  */
 
 // Функция для управления видимостью параметров
-function checkSyncConflicts() {
+/*function checkSyncConflicts() {
     var byLampaSync = Lampa.Storage.field('acc_sync');
     var cubSync = Lampa.Storage.field('account_use');
     
@@ -118,6 +118,110 @@ Lampa.Settings.listener.follow('open', function(e) {
         setTimeout(function() {
             checkSyncConflicts();
         }, 0);
+    }
+});*/
+
+function checkSyncConflicts() {
+    var byLampaSync = Lampa.Storage.field('acc_sync');
+    var cubSync = Lampa.Storage.field('account_use');
+    
+    // Если включена синхронизация CUB, скрываем оригинальный параметр BYLAMPA и показываем заглушку
+    if (cubSync) {
+        $('div[data-name="acc_sync"]').hide();
+        $('div[data-name="acc_sync_disabled"]').show();
+    } else {
+        $('div[data-name="acc_sync"]').show();
+        $('div[data-name="acc_sync_disabled"]').hide();
+    }
+    
+    // Если включена синхронизация BYLAMPA, скрываем оригинальный параметр CUB и показываем заглушку
+    if (byLampaSync) {
+        $('div[data-name="account_use"]').hide();
+        $('div[data-name="account_use_disabled"]').show();
+    } else {
+        $('div[data-name="account_use"]').show();
+        $('div[data-name="account_use_disabled"]').hide();
+    }
+    
+    // Восстанавливаем фокус только один раз, после всех манипуляций
+    setTimeout(function() {
+        // Находим первый видимый элемент в текущем компоненте
+        var visibleParams = $('.settings-param:visible');
+        if (visibleParams.length > 0) {
+            // Фокусируемся на первом видимом элементе
+            Lampa.Controller.focus(visibleParams.first());
+        }
+    }, 100);
+}
+
+// Создаем заглушку для BYLAMPA
+Lampa.SettingsApi.addParam({
+    component: 'acc',
+    param: {
+        name: 'acc_sync_disabled',
+        type: 'trigger',
+        default: false
+    },
+    field: {
+        name: 'Синхронизация данных',
+        description: 'Синхронизация ваших закладок, плагинов, таймкодов, историй просмотров и поиска между устройствами'
+    },
+    onRender: function(item) {
+        setTimeout(function() {
+            $('div[data-name="acc_sync_disabled"]').insertBefore('div[data-name="acc_sync"]');
+        }, 0);
+    },
+    onChange: function(value) {
+        // Возвращаем false и обновляем настройки
+        Lampa.Storage.set('acc_sync_disabled', false);
+        Lampa.Settings.update();
+        Lampa.Bell.push({
+            text: 'Сначала отключите синхронизацию CUB',
+            icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="#f44336"/></svg>'
+        });
+    }
+});
+
+// Создаем заглушку для CUB
+Lampa.SettingsApi.addParam({
+    component: 'account',
+    param: {
+        name: 'account_use_disabled',
+        type: 'trigger',
+        default: false
+    },
+    field: {
+        name: 'Синхронизация',
+        description: ''
+    },
+    onRender: function(item) {
+        setTimeout(function() {
+            $('div[data-name="account_use_disabled"]').insertBefore('div[data-name="account_use"]');
+        }, 0);
+    },
+    onChange: function(value) {
+        // Возвращаем false и обновляем настройки
+        Lampa.Storage.set('account_use_disabled', false);
+        Lampa.Settings.update();
+        Lampa.Bell.push({
+            text: 'Сначала отключите синхронизацию BYLAMPA',
+            icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="#f44336"/></svg>'
+        });
+    }
+});
+
+// Запускаем проверку при открытии настроек
+Lampa.Settings.listener.follow('open', function(e) {
+    if (e.name == 'account') {
+        setTimeout(function() {
+            checkSyncConflicts();
+        }, 100);
+    }
+    
+    if (e.name == 'acc') {
+        setTimeout(function() {
+            checkSyncConflicts();
+        }, 100);
     }
 });
             
