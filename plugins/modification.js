@@ -3,29 +3,6 @@ window.lampa_settings.disable_features.lgbt = Lampa.Storage.get('lgbt_off', fals
 
 Lampa.Storage.set('protocol', 'http');
 
-Lampa.Listener.follow('full', function(a) {
-            if (a.type == 'complite') {
-$('.full-start-new__rate-line .full-start__pg, .full-start-new__rate-line .full-start__status').wrapAll('<div class="rate-line-bottom"></div>');
-
-$('.rate-line-bottom').css({
-    'display': 'flex',
-    'flex-direction': 'row',
-    'flex-basis': '100%',
-    'width': '100%',
-    'margin-top': '1em',
-    'order': '2' 
-});
-
-// Восстанавливаем оригинальные отступы для элементов внутри контейнера
-$('.rate-line-bottom > *').css({
-    'margin-left': '0',
-    'margin-right': '1em'
-});
-
-// Убираем отступ у последнего элемента
-$('.rate-line-bottom > *:last-child').css('margin-right', '0');
-				}
-        });
 
 /*
  *** Взаимное исключение синхронизаций BYLAMPA и CUB
