@@ -104,7 +104,7 @@ Lampa.Settings.listener.follow('open', function(e) {
 });*/
 
 localStorage.setItem('cub_mirrors', '["cubleave.store"]');
-localStorage.setItem('cub_domain', 'cubleave.store');
+// localStorage.setItem('cub_domain', 'cubleave.store');
 //localStorage.removeItem('cub_domain');
 
 Lampa.SettingsApi.addParam({
