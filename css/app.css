@@ -49,68 +49,74 @@
   background-position: center;
   background-size: contain;
 
-  /* лого появляется через opacity + лёгкий scale, без blur */
   animation: logoIn 4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* ===== ТВ-ШУМ ПОВЕРХ ЛОГОТИПА ===== */
+/* ===== СВЕТ ОТ ЛАМПЫ ===== */
 .welcome::after {
   content: "";
   position: absolute;
-  inset: 0;
-  z-index: 3;
+  left: 50%;
+  transform: translateX(-50%);
+
+  top: 0;
+  height: calc(50% - 71px + 50px);
+  width: 320px;
+  z-index: 1;
   pointer-events: none;
 
-  /* SVG-шум через feTurbulence */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 200px 200px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.65) 0%,
+    rgba(255, 255, 255, 0.36) 30%,
+    rgba(255, 255, 255, 0.18) 60%,
+    rgba(255, 255, 255, 0.07) 85%,
+    rgba(255, 255, 255, 0) 100%
+  );
 
-  /* смешивание: шум осветляет/затемняет поверх лого */
-  mix-blend-mode: screen;
+  /* мягкий конус: источник шире, края плавные */
+  -webkit-clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%);
+          clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%);
+
+  filter: blur(10px);
 
   opacity: 0;
-  animation: tvNoise 4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: lampOn 4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes logoIn {
   0% {
     opacity: 0;
-    transform: scale(0.85);
+    transform: scale(0.5);
+    filter: blur(24px);
   }
   20% {
     opacity: 1;
   }
+  /* blur начинает уходить с 20%, заканчивает к 60% */
   60% {
     opacity: 1;
     transform: scale(1);
+    filter: blur(0);
   }
   100% {
     opacity: 1;
     transform: scale(1);
+    filter: blur(0);
   }
 }
 
-@keyframes tvNoise {
-  /* шум активно рябит в начале и постепенно гаснет к 60% */
-  0% {
-    opacity: 0.9;
-    background-position: 0 0;
-  }
-  20% {
-    opacity: 0.7;
-    background-position: -30px 20px;
-  }
-  40% {
-    opacity: 0.45;
-    background-position: 20px -40px;
+@keyframes lampOn {
+  /* свет загорается заранее и доходит до максимума к 60% —
+     ровно тогда, когда лого стало чётким */
+  0%, 25% {
+    opacity: 0;
   }
   60% {
-    opacity: 0;
-    background-position: -10px 10px;
+    opacity: 1;
   }
   100% {
-    opacity: 0;
+    opacity: 1;
   }
 }
   
