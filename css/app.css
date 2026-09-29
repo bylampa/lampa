@@ -37,8 +37,8 @@
 
 .welcome::before {
   content: "";
-  width: 200px;      /* было 110 — увеличили */
-  height: 190px;     /* было 104 — пропорционально */
+  width: 150px;
+  height: 142px;
   display: block;
 
   background-image: url(../img/logo-icon.svg);
@@ -46,18 +46,16 @@
   background-position: center;
   background-size: contain;
 
-  animation:
-    logoIn 3.2s cubic-bezier(0.19, 1, 0.22, 1) both,
-    logoGlow 3.6s ease-in-out 3.2s infinite;
+  animation: logoIn 4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes logoIn {
   0% {
     opacity: 0;
-    transform: scale(0.5);
-    filter: blur(26px);
+    transform: scale(0.4);
+    filter: blur(32px);
   }
-  25% {
+  20% {
     opacity: 1;
   }
   100% {
@@ -65,11 +63,6 @@
     transform: scale(1);
     filter: blur(0);
   }
-}
-
-@keyframes logoGlow {
-  0%, 100% { filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0)); }
-  50%      { filter: drop-shadow(0 0 18px rgba(255, 255, 255, .55)); }
 }
 
 .lang {
