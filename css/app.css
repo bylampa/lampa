@@ -35,13 +35,14 @@
   transition: opacity .6s ease, transform .6s ease;
 }
 
-/* базовый слой: появление + фокус */
+/* ===== ЛОГОТИП ===== */
 .welcome::before {
   content: "";
   width: 150px;
   height: 142px;
   display: block;
-  grid-area: 1 / 1;
+  position: relative;
+  z-index: 2;
 
   background-image: url(../img/logo-icon.svg);
   background-repeat: no-repeat;
@@ -51,48 +52,34 @@
   animation: logoIn 4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* слой блика: та же SVG, но с движущейся световой маской */
+/* ===== СВЕТОВОЙ КОНУС СВЕРХУ ===== */
 .welcome::after {
   content: "";
-  width: 150px;
-  height: 142px;
-  display: block;
-  grid-area: 1 / 1;
   position: absolute;
-  top: 50%;
+  top: 0;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
+  width: 340px;
+  height: 55vh;
+  z-index: 1;
+  pointer-events: none;
 
-  background-image: url(../img/logo-icon.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+  /* конус: узкий вверху, широкий внизу, заострённый к лого */
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.02) 20%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(255, 255, 255, 0.14) 80%,
+    rgba(255, 255, 255, 0.22) 100%
+  );
 
-  /* маска — узкая световая полоса */
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(255,255,255,.9) 45%,
-    rgba(255,255,255,.9) 55%,
-    transparent 100%
-  );
-          mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(255,255,255,.9) 45%,
-    rgba(255,255,255,.9) 55%,
-    transparent 100%
-  );
-  -webkit-mask-size: 100% 40%;
-          mask-size: 100% 40%;
-  -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
-  -webkit-mask-position: 50% -50%;
-          mask-position: 50% -50%;
+  /* сужаем вверху, чтобы получился конус */
+  -webkit-clip-path: polygon(45% 0, 55% 0, 100% 100%, 0 100%);
+          clip-path: polygon(45% 0, 55% 0, 100% 100%, 0 100%);
 
   opacity: 0;
-  animation: shine 4s cubic-bezier(0.16, 1, 0.3, 1) both;
-  pointer-events: none;
+  animation: lampOn 4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes logoIn {
@@ -109,8 +96,8 @@
   }
   60% {
     opacity: 1;
-    transform: scale(1);   /* лого растянулось к 60% */
-    filter: blur(0);       /* и уже чёткое */
+    transform: scale(1);
+    filter: blur(0);
   }
   100% {
     opacity: 1;
@@ -119,24 +106,15 @@
   }
 }
 
-@keyframes shine {
+@keyframes lampOn {
   0%, 55% {
     opacity: 0;
-    -webkit-mask-position: 50% -50%;
-            mask-position: 50% -50%;
   }
-  60% {
-    opacity: .9;
-  }
-  85% {
-    opacity: .9;
-    -webkit-mask-position: 50% 150%;
-            mask-position: 50% 150%;
+  70% {
+    opacity: 1;
   }
   100% {
-    opacity: 0;
-    -webkit-mask-position: 50% 150%;
-            mask-position: 50% 150%;
+    opacity: 1;
   }
 }
 
