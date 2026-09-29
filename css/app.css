@@ -1,5 +1,5 @@
 @charset "UTF-8";
-.welcome {
+/*.welcome {
   position: fixed;
   top: 0;
   left: 0;
@@ -11,6 +11,56 @@
      -moz-background-size: cover;
        -o-background-size: cover;
           background-size: cover;
+}*/
+
+.welcome {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+
+  background-color: #000;
+  background-image: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(255, 255, 255, 0.02) 30%,
+    rgba(0, 0, 0, 0) 70%
+  );
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: opacity .6s ease, transform .6s ease;
+}
+
+/* логотип через ::before — путь такой же, как был у welcome.jpg */
+.welcome::before {
+  content: "";
+  width: 110px;
+  height: 104px;
+  display: block;
+
+  background-image: url(../img/logo-icon.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+  animation:
+    logoIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) both,
+    logoGlow 3s ease-in-out 1.2s infinite;
+}
+
+@keyframes logoIn {
+  0%   { opacity: 0; transform: scale(0.85); filter: blur(10px); }
+  100% { opacity: 1; transform: scale(1);    filter: blur(0); }
+}
+
+@keyframes logoGlow {
+  0%, 100% { filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0)); }
+  50%      { filter: drop-shadow(0 0 12px rgba(255, 255, 255, .45)); }
 }
 
 .lang {
