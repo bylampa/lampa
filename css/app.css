@@ -94,7 +94,7 @@
     opacity: 1;
   }
   /* blur начинает уходить с 20%, заканчивает к 60% */
-  60% {
+  65% {
     opacity: 1;
     transform: scale(1);
     filter: blur(0);
