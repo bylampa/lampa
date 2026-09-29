@@ -35,7 +35,6 @@
   transition: opacity .6s ease, transform .6s ease;
 }
 
-/* ===== ЛОГОТИП ===== */
 .welcome::before {
   content: "";
   width: 150px;
@@ -52,7 +51,6 @@
   animation: logoIn 5.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* ===== СВЕТ ОТ ЛАМПЫ ===== */
 .welcome::after {
   content: "";
   position: absolute;
@@ -92,7 +90,10 @@
   15% {
     opacity: 1;
   }
-  /* blur и scale идут дольше — до 70% */
+  /* ключевая точка: blur уходит быстрее в начале, тянется в конце */
+  45% {
+    filter: blur(6px);
+  }
   70% {
     opacity: 1;
     transform: scale(1);
@@ -106,7 +107,6 @@
 }
 
 @keyframes lampOn {
-  /* свет загорается внахлёст и достигает максимума к 70% */
   0%, 20% {
     opacity: 0;
   }
