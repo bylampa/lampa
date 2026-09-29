@@ -35,11 +35,13 @@
   transition: opacity .6s ease, transform .6s ease;
 }
 
+/* базовый слой: появление + фокус */
 .welcome::before {
   content: "";
   width: 150px;
   height: 142px;
   display: block;
+  grid-area: 1 / 1;
 
   background-image: url(../img/logo-icon.svg);
   background-repeat: no-repeat;
@@ -47,6 +49,50 @@
   background-size: contain;
 
   animation: logoIn 4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* слой блика: та же SVG, но с движущейся световой маской */
+.welcome::after {
+  content: "";
+  width: 150px;
+  height: 142px;
+  display: block;
+  grid-area: 1 / 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background-image: url(../img/logo-icon.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+  /* маска — узкая световая полоса */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255,255,255,.9) 45%,
+    rgba(255,255,255,.9) 55%,
+    transparent 100%
+  );
+          mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255,255,255,.9) 45%,
+    rgba(255,255,255,.9) 55%,
+    transparent 100%
+  );
+  -webkit-mask-size: 100% 40%;
+          mask-size: 100% 40%;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-position: 50% -50%;
+          mask-position: 50% -50%;
+
+  opacity: 0;
+  animation: shine 4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  pointer-events: none;
 }
 
 @keyframes logoIn {
@@ -61,13 +107,36 @@
   50% {
     filter: blur(10px);
   }
-  75% {
-    filter: blur(0);
+  60% {
+    opacity: 1;
+    transform: scale(1);   /* лого растянулось к 60% */
+    filter: blur(0);       /* и уже чёткое */
   }
   100% {
     opacity: 1;
     transform: scale(1);
     filter: blur(0);
+  }
+}
+
+@keyframes shine {
+  0%, 55% {
+    opacity: 0;
+    -webkit-mask-position: 50% -50%;
+            mask-position: 50% -50%;
+  }
+  60% {
+    opacity: .9;
+  }
+  85% {
+    opacity: .9;
+    -webkit-mask-position: 50% 150%;
+            mask-position: 50% 150%;
+  }
+  100% {
+    opacity: 0;
+    -webkit-mask-position: 50% 150%;
+            mask-position: 50% 150%;
   }
 }
 
