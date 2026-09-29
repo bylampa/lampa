@@ -35,6 +35,7 @@
   transition: opacity .6s ease, transform .6s ease;
 }
 
+/* ===== ЛОГОТИП ===== */
 .welcome::before {
   content: "";
   width: 150px;
@@ -48,9 +49,10 @@
   background-position: center;
   background-size: contain;
 
-  animation: logoIn 5.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: logoIn 4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+/* ===== СВЕТ ОТ ЛАМПЫ ===== */
 .welcome::after {
   content: "";
   position: absolute;
@@ -72,13 +74,14 @@
     rgba(255, 255, 255, 0) 100%
   );
 
+  /* мягкий конус: источник шире, края плавные */
   -webkit-clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%);
           clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%);
 
   filter: blur(10px);
 
   opacity: 0;
-  animation: lampOn 5.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: lampOn 4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes logoIn {
@@ -87,14 +90,11 @@
     transform: scale(0.5);
     filter: blur(24px);
   }
-  15% {
+  20% {
     opacity: 1;
   }
-  /* ключевая точка: blur уходит быстрее в начале, тянется в конце */
-  45% {
-    filter: blur(6px);
-  }
-  70% {
+  /* blur начинает уходить с 20%, заканчивает к 60% */
+  60% {
     opacity: 1;
     transform: scale(1);
     filter: blur(0);
@@ -107,10 +107,12 @@
 }
 
 @keyframes lampOn {
-  0%, 20% {
+  /* свет загорается заранее и доходит до максимума к 60% —
+     ровно тогда, когда лого стало чётким */
+  0%, 25% {
     opacity: 0;
   }
-  70% {
+  60% {
     opacity: 1;
   }
   100% {
