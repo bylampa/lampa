@@ -250,7 +250,7 @@ $(document).ready(function() {
     });*/
 });
 
- var plugins = Lampa.Storage.get('plugins','[]')
+ /*var plugins = Lampa.Storage.get('plugins','[]')
 
     plugins.forEach(function(plug) {
         plug.url = (plug.url + '').replace('http://cub.red/plugin/tmdb-proxy', 'https://bylampa.github.io/tmdb-proxy.js');
@@ -258,7 +258,7 @@ $(document).ready(function() {
 		plug.url = (plug.url + '').replace('https://nb557.github.io/plugins/online_mod.js', 'https://bylampa.github.io/online_mod.js');
     })
 
-    Lampa.Storage.set('plugins',plugins) 
+    Lampa.Storage.set('plugins',plugins) */
 
   var backImport = localStorage.getItem('plugins') || [];
   localStorage.setItem('pluginsBack', backImport);
