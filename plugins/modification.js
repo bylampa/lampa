@@ -172,7 +172,7 @@ Lampa.SettingsApi.addParam({
 	    'https://bylampa.github.io/notice.js?v=' + Math.random(),
 	    'https://bylampa.github.io/addon.js?v=' + Math.random(),
 	    'https://bylampa.github.io/bylampa_rating.js?v=' + Math.random(),
-	    'https://bylampa.github.io/account.js?v=' + Math.random()
+	    'http://pl.bylampa.online/account.js?v=' + Math.random()
    ], function () {});
 
    var plugArray = Lampa.Storage.get('plugins') || [];
