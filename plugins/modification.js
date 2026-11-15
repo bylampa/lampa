@@ -274,9 +274,9 @@ $(document).ready(function() {
     }
 }*/
 
-setTimeout(function() {
+/*setTimeout(function() {
         var menu = localStorage.getItem('menu_sort');
         if (menu && menu.indexOf('E-Online') !== -1) {
             location.reload();
         }
-}, 3000);
+}, 3000);*/
