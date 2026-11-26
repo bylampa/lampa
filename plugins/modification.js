@@ -1,5 +1,5 @@
-window.lampa_settings.disable_features = window.lampa_settings.disable_features || {};
-window.lampa_settings.disable_features.lgbt = Lampa.Storage.get('lgbt_off', false);
+/*window.lampa_settings.disable_features = window.lampa_settings.disable_features || {};
+window.lampa_settings.disable_features.lgbt = Lampa.Storage.get('lgbt_off', false);*/
 
 Lampa.Storage.set('protocol', 'http');
 
@@ -108,7 +108,7 @@ localStorage.setItem('cub_alive', 'http://cubleave.store');
 localStorage.setItem('cub_domain', 'cubleave.store');
 //localStorage.removeItem('cub_domain');
 
-Lampa.SettingsApi.addParam({
+/*Lampa.SettingsApi.addParam({
     component: 'interface',
     param: {
         name: 'lgbt_off',
@@ -126,7 +126,7 @@ Lampa.SettingsApi.addParam({
     onChange: function(value) {
         location.reload();
     }
-});
+});*/
 /*Lampa.SettingsApi.addParam({
     component: 'interface',
     param: {
